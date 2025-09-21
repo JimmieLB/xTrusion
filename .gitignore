@@ -1,0 +1,9 @@
+depth_anything_v2.vit*
+__pycache__
+.venv
+checpoints/depth_anything_v2
+checkpoints/depth_anything_v2_vitl.pth
+output/*
+assets/*
+*.jpg
+*.png
