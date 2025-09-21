@@ -6,4 +6,3 @@ checkpoints/depth_anything_v2_vitl.pth
 output/*
 assets/*
 *.jpg
-*.png
