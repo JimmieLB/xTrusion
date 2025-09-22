@@ -7,3 +7,5 @@ matplotlib
 huggingface_hub
 numpy
 numpy-stl
+flask
+pillow
