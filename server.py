@@ -20,11 +20,12 @@ def img_encode(np_img):
     img.save(buffer, format='PNG')
     return buffer.getvalue()
 
-def mesh_encode(np_mesh):
-    bytes_io = io.BytesIO()
-    np_mesh.save(bytes_io, mode=mesh.Mode.Binary)
-    bytes_io.seek(0)
-    return bytes_io.getvalue()
+def mesh_encode(faces, vertices):
+    buffer = io.BytesIO()
+    np.savez_compressed(buffer, faces=faces, vertices=vertices)
+    # np_mesh.save(bytes_io, mode=mesh.Mode.Binary)
+    print(f'Mesh is {buffer.getbuffer().nbytes} bytes')
+    return buffer.getvalue()
 
 @app.route('/')
 def home():
@@ -51,8 +52,9 @@ def d2m():
     print(decoded_img.shape)
     # depth_map = np.dot(decoded_img[...,:3], [0.2989, 0.5870, 0.1140])
     # print(depth_map.shape)
-    mesh_bytes_io = createMesh(decoded_img)
-    response = make_response(mesh_bytes_io)
+    faces, vertices = createMesh(decoded_img)
+    mesh_buffer = mesh_encode(faces, vertices)
+    response = make_response(mesh_buffer)
     response.headers.set('Content-Type', 'application/octect-stream')
 
     return response
