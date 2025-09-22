@@ -59,6 +59,19 @@ def d2m():
 
     return response
 
+@app.route('/image2mesh', methods=['POST'])
+def i2m():
+    if 'image' not in request.files:
+        return jsonify({"error": "No image provided"}), 400
+    img_buffer = request.files['image'].read()
+    decoded_img = img_decode(img_buffer)
+    depth_map = createDepthMap(decoded_img)
+    faces, vertices = createMesh(depth_map)
+    mesh_buffer = mesh_encode(faces, vertices)
+    response = make_response(mesh_buffer)
+    response.headers.set('Content-Type', 'application/octect-stream')
 
+    return response
+    
 if __name__ == '__main__':
     app.run()
