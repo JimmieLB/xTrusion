@@ -5,6 +5,7 @@ from stlMaker import createMesh
 import numpy as np
 from stl import mesh
 import io
+import random
 from PIL import Image
 app = Flask(__name__)
 CORS(app)
@@ -62,28 +63,28 @@ def d2m():
 
 @app.route('/image2mesh', methods=['POST'])
 def i2m():
+    print(request.headers)
     if 'image' not in request.files:
         return jsonify({"error": "No image provided"}), 400
     img_buffer = request.files['image'].read()
     decoded_img = img_decode(img_buffer)
     depth_map = createDepthMap(decoded_img)
     faces, vertices = createMesh(depth_map)
-    mesh_buffer = mesh_encode(faces, vertices)
-    response = make_response(mesh_buffer)
-    response.headers.set('Content-Type', 'application/octect-stream')
+    
+    return jsonify({"faces": faces.tolist(), "vertices": vertices.tolist()})
+    # mesh_buffer = mesh_encode(faces, vertices)
+    # response = make_response(mesh_buffer)
+    # response.headers.set('Content-Type', 'application/octect-stream')
 
     return response
 
 @app.route('/meshtest', methods=['POST'])
 def meshTest():
-    if 'image' not in request.files:
-        return jsonify({"error": "No image provided"}), 400
     depth_map = np.array([
-        [10,20,30],
-        [20,30,40],
-        [30,40,50]])
+        [random.randint(1,254),random.randint(1,254),random.randint(1,254)],
+        [random.randint(1,254),random.randint(1,254),random.randint(1,254)],
+        [random.randint(1,254),random.randint(1,254),random.randint(1,254)]])
     faces, vertices = createMesh(depth_map)
-    mesh_buffer = mesh_encode(faces, vertices)
     return jsonify({"faces": faces.tolist(), "vertices": vertices.tolist()})
     
 if __name__ == '__main__':
