@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, make_response, jsonify
+from flask_cors import CORS
 from depth import createDepthMap
 from stlMaker import createMesh
 import numpy as np
@@ -6,7 +7,7 @@ from stl import mesh
 import io
 from PIL import Image
 app = Flask(__name__)
-
+CORS(app)
 def img_decode(buffer):
 
     img = Image.open(io.BytesIO(buffer))
@@ -31,9 +32,9 @@ def mesh_encode(faces, vertices):
 def home():
     return "Flask Test"
 
-@app.route('/img2depth', methods=['POST'])
+@app.route('/image2depth', methods=['POST'])
 def i2d():
-    if 'image' not in request.files:
+    if 'image' not in request.fil7es:
         return jsonify({"error": "No image provided"}), 400
     img_buffer = request.files['image'].read()
     decoded_img = img_decode(img_buffer)
@@ -72,6 +73,18 @@ def i2m():
     response.headers.set('Content-Type', 'application/octect-stream')
 
     return response
+
+@app.route('/meshtest', methods=['POST'])
+def meshTest():
+    if 'image' not in request.files:
+        return jsonify({"error": "No image provided"}), 400
+    depth_map = np.array([
+        [10,20,30],
+        [20,30,40],
+        [30,40,50]])
+    faces, vertices = createMesh(depth_map)
+    mesh_buffer = mesh_encode(faces, vertices)
+    return jsonify({"faces": faces.tolist(), "vertices": vertices.tolist()})
     
 if __name__ == '__main__':
     app.run()
