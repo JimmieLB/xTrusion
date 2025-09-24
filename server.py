@@ -1,9 +1,8 @@
-from flask import Flask, render_template, request, make_response, jsonify
+from flask import Flask, request, make_response, jsonify
 from flask_cors import CORS
 from depth import createDepthMap
 from stlMaker import createMesh
 import numpy as np
-from stl import mesh
 import io
 import random
 from PIL import Image

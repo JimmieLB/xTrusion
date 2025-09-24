@@ -1,12 +1,6 @@
-import cv2
 import torch
-import numpy as np
-import io
-import base64
 
 from depth_anything_v2.dpt import DepthAnythingV2
-
-from PIL import Image
 
 
 # model = DepthAnythingV2(encoder='vitl', features=256, out_channels=[256, 512, 1024, 1024])
@@ -44,8 +38,8 @@ def createDepthMap(raw_img):
     return depth_map_img
 
 
-if __name__ == "__main__":
-    pil_img = Image.open("assets/examples/demo03.jpg")
-    cv2_img = cv2.imread("assets/examples/demo03.jpg")
-    img_array = np.array(pil_img)
-    cv2.imwrite("exmapleout.jpg", createDepthMap(cv2_img))
+# if __name__ == "__main__":
+#     pil_img = Image.open("assets/examples/demo03.jpg")
+#     cv2_img = cv2.imread("assets/examples/demo03.jpg")
+#     img_array = np.array(pil_img)
+#     cv2.imwrite("exmapleout.jpg", createDepthMap(cv2_img))

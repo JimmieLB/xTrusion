@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 # from skimage import measure
-import cv2
+# import cv2
 from stl import mesh 
 from PIL import Image
 
@@ -98,6 +98,6 @@ def createMesh(raw_data, name="cube", shrink=True, save=False, z_max=20, xy_max=
   # return cube
   return (faces, vertices)
 
-if __name__ == "__main__":
-    depth = cv2.imread("./exampleout.jpg",cv2.IMREAD_GRAYSCALE)
-    createMesh(depth)
+# if __name__ == "__main__":
+#     depth = cv2.imread("./exampleout.jpg",cv2.IMREAD_GRAYSCALE)
+#     createMesh(depth)
