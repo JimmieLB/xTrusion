@@ -6,4 +6,4 @@ WORKDIR /opt/app
 RUN pip install -r ./requirements.txt
 COPY . /opt/app
 
-CMD python3 server.py
+CMD gunicorn -w 4 'server:app'

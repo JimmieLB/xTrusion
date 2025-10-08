@@ -4,8 +4,10 @@ torch
 torchvision
 matplotlib
 huggingface_hub
+opencv-python-headless
 numpy
 numpy-stl
 flask
 flask_cors
 pillow
+gunicorn
