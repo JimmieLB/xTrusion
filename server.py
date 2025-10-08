@@ -36,6 +36,7 @@ def home():
 def i2d():
     if 'image' not in request.fil7es:
         return jsonify({"error": "No image provided"}), 400
+    print("A")
     img_buffer = request.files['image'].read()
     decoded_img = img_decode(img_buffer)
     depth_map = createDepthMap(decoded_img)
