@@ -21,7 +21,7 @@ model_configs = {
 encoder = 'vitl' # or 'vits', 'vitb', 'vitg'
 
 model = DepthAnythingV2(**model_configs[encoder])
-model.load_state_dict(torch.load(f'checkpoints/depth_anything_v2_{encoder}.pth', map_location='cpu'))
+model.load_state_dict(torch.load(f'checkpoints/depth_anything_v2_{encoder}.pth', map_location='cpu', weights_only=False))
 model = model.to(DEVICE).eval()
 
 print("Model Loaded")
