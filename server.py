@@ -34,7 +34,7 @@ def home():
 
 @app.route('/image2depth', methods=['POST'])
 def i2d():
-    if 'image' not in request.fil7es:
+    if 'image' not in request.files:
         return jsonify({"error": "No image provided"}), 400
     print("A")
     img_buffer = request.files['image'].read()
