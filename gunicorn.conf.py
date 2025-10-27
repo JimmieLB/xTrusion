@@ -1,8 +1,10 @@
 import multiprocessing
 
+# gunicorn -c gunicorn.conf.py app:server
+
 bind = "0.0.0.0:8000"
 
-workers = multiprocessing.cpu_count()
+workers = 1
 
 # Type of worker process (e.g., 'sync', 'eventlet', 'gevent')
 worker_class = "sync"
